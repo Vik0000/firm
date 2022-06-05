@@ -1,0 +1,42 @@
+<div class="statistic">
+    <h1>Статистика</h1>
+    <p>Хора във фирмата: {{employeesNumber}} </p>
+    <p>Проекти във фирмата: {{projectsNumber}} </p>
+    <div>
+      <h2>Активни проекти:</h2>
+    <div *ngFor="let project of projects"> 
+      <div *ngIf="checkActive(project)">   
+        <p >Проект: {{project.project_name}} -
+          Давност: {{project.start_date |  date:'dd/MM/yyyy'}} - {{project.end_date |  date:'dd/MM/yyyy'}}</p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2>Двамата най-много работили заедно:</h2>
+    <div >
+      <p>{{checkForEmployeesDuo()}}</p>
+      
+    </div>
+  </div>
+  <div>
+    <h2>Хора работещи по даден проект в момента:</h2>
+    <div *ngFor="let employee of employees" >
+      <div *ngFor="let project of employee.employeeProjects">
+        <div *ngIf="workingNow(project)">
+          <p>{{employee.name}} работи по {{getName(project.project_id)}}</p>
+        </div>
+  </div>
+  </div>
+  </div>
+  <div>
+    <h2>Хора работили по повече от един проект в даден момент:</h2>
+    <div *ngFor="let employee of employees">
+        <div *ngIf="workingOnMoreThanOne(employee)">
+          <p>{{employee.name}}</p>
+        </div>
+  
+      </div>
+  </div>
+   <br>
+  <br>  
+  </div>

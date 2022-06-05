@@ -1,0 +1,81 @@
+<div class="mat-elevation-z8">
+    <table 
+    mat-table 
+    [dataSource]="dataSource" 
+    matSort 
+    (matSortChange)="announceSortChange($event)">
+  
+      <!-- Ид -->
+      <ng-container matColumnDef="id">
+        <th
+         mat-header-cell 
+         *matHeaderCellDef
+         mat-sort-header 
+         sortActionDescription="Sort by id"> ИД   </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+  
+      <!-- Име-->
+      <ng-container matColumnDef="name">
+        <th 
+        mat-header-cell 
+        *matHeaderCellDef
+        mat-sort-header 
+        sortActionDescription="Sort by name"
+        > Име </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+     
+      
+      <!-- Проекти -->
+      <ng-container matColumnDef="employeeProjects.project_id">
+        <th 
+        mat-header-cell 
+        *matHeaderCellDef
+        mat-sort-header 
+        sortActionDescription="Sort by project_id"
+        > Име на проект </th>
+        <td mat-cell *matCellDef="let element" > 
+          <mat-form-field appearance="fill">
+            <mat-label>Проект</mat-label>
+          <mat-select #matRef [value] = "getProject(element.employeeProjects[0].project_id,element) "  (selectionChange)="changeProject($event.value,element)">
+          <mat-option *ngFor="let project of element.employeeProjects" [value]="project.project_id">
+            {{getName(project.project_id,element)}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field> </td>
+      </ng-container>
+
+        <!-- Начална дата -->
+
+      <ng-container matColumnDef="employeeProjects.start_work">
+        <th 
+        mat-header-cell 
+        *matHeaderCellDef
+        mat-sort-header 
+        sortActionDescription="Sort by startWork"
+        > Начална дата </th>
+        <td mat-cell *matCellDef="let element"> {{getStartWork(element)  |  date:'dd/MM/yyyy'}} </td>
+      </ng-container>
+
+         <!-- Крайна дата -->
+         <ng-container matColumnDef="employeeProjects.end_work">
+          <th 
+          mat-header-cell 
+          *matHeaderCellDef
+          mat-sort-header 
+          sortActionDescription="Sort by end_work"
+          > Крайна дата </th>
+          <td mat-cell *matCellDef="let element"> {{getEndWork(element) |  date:'dd/MM/yyyy'}} </td>
+        </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[10]"
+                   showFirstLastButtons 
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+  <br>
