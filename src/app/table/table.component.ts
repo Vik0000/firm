@@ -50,8 +50,8 @@ export class TableComponent implements AfterViewInit {
   curProject:any;
   changedProjectEmployeeId: any = {
     project_id:"000",
-    newStartWork:'Yes',
-    newEndWork: 'Yes',
+    newStartWork:'',
+    newEndWork: '',
     selectedId: 0};
 
     nowWorking: any = 0;
